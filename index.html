@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>城市旅游攻略 · 索引页</title>
+    <title>深圳一周旅游攻略 | 7天深度游</title>
     <style>
         :root {
             --primary: #0a6e7c;
@@ -28,546 +28,1037 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: var(--font-sans);
             background: var(--bg);
             color: var(--text);
             line-height: 1.7;
             -webkit-font-smoothing: antialiased;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
         }
 
-        .app-wrapper {
-            width: 100%;
-            max-width: 1200px;
-            padding: 20px 20px 40px;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .app-header {
+        /* ===== 顶部横幅 ===== */
+        .hero {
+            background: linear-gradient(135deg, #0a6e7c 0%, #0b8a9c 35%, #0d9eae 65%, #0fa3b8 100%);
+            color: #fff;
+            padding: 80px 20px 70px;
             text-align: center;
-            margin-bottom: 24px;
-            padding: 30px 10px 10px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .app-header h1 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--text);
-            letter-spacing: -0.5px;
-            margin-bottom: 6px;
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.06) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.04) 0%, transparent 40%);
+            animation: heroFloat 20s ease-in-out infinite;
+            pointer-events: none;
         }
 
-        .app-header p {
-            color: var(--text-light);
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
+        @keyframes heroFloat {
+            0%,
+            100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(2%, -2%);
+            }
         }
 
-        .tab-nav {
-            display: flex;
-            gap: 8px;
-            background: #ffffff;
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 6px 18px;
             border-radius: 50px;
-            padding: 8px;
-            box-shadow: var(--shadow);
-            margin-bottom: 28px;
-            flex-wrap: wrap;
-            justify-content: center;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
         }
 
-        .tab-btn {
-            flex: 1 1 auto;
-            min-width: 100px;
-            padding: 10px 20px;
-            border-radius: 40px;
-            border: none;
-            background: transparent;
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--text-light);
-            cursor: pointer;
-            transition: var(--transition);
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+            text-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            opacity: 0.92;
+            max-width: 600px;
+            margin: 0 auto;
             letter-spacing: 0.5px;
-            white-space: nowrap;
         }
 
-        .tab-btn:hover {
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 36px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            display: block;
+        }
+
+        .hero-stat-label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+            letter-spacing: 1px;
+        }
+
+        /* ===== 导航 ===== */
+        .nav-bar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid #e2e8f0;
+            padding: 12px 20px;
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .nav-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            gap: 6px;
+            justify-content: flex-start;
+        }
+
+        .nav-link {
+            padding: 8px 18px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+            flex-shrink: 0;
+            letter-spacing: 0.3px;
+        }
+
+        .nav-link:hover {
             background: var(--primary-light);
             color: var(--primary);
         }
-
-        .tab-btn.active {
+        .nav-link.active {
             background: var(--primary);
             color: #fff;
-            box-shadow: 0 4px 12px rgba(10, 110, 124, 0.3);
         }
 
-        .tab-content {
-            flex: 1;
-            background: transparent;
-            border-radius: var(--radius);
-            min-height: 600px;
+        /* ===== 主体容器 ===== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 20px 60px;
         }
 
-        .tab-pane {
-            display: none;
-            animation: fadeIn 0.35s ease;
+        /* ===== 概览区域 ===== */
+        .overview-section {
+            margin-bottom: 48px;
         }
 
-        .tab-pane.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .pane-iframe-wrapper {
-            background: #fff;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            overflow: hidden;
-            border: 1px solid #edf2f7;
-            height: 80vh;
-            min-height: 600px;
-        }
-
-        .pane-iframe-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-
-        .placeholder-pane {
-            background: #fff;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            padding: 60px 30px;
-            text-align: center;
-            border: 1px solid #edf2f7;
-            min-height: 500px;
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            gap: 10px;
+        }
+
+        .section-title .icon {
+            font-size: 1.6rem;
+        }
+
+        .section-subtitle {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            margin-bottom: 28px;
+            letter-spacing: 0.3px;
+        }
+
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 16px;
         }
 
-        .placeholder-pane .icon {
-            font-size: 4rem;
-            opacity: 0.6;
+        .overview-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-sm);
+            padding: 20px 16px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: default;
+            border: 1px solid #edf2f7;
         }
 
-        .placeholder-pane h3 {
+        .overview-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .overview-card .day-num {
             font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--primary);
+            display: block;
+        }
+
+        .overview-card .day-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            letter-spacing: 1px;
+            margin-top: 2px;
+        }
+
+        .overview-card .day-location {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-top: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== 每日行程卡片 ===== */
+        .days-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 28px;
+        }
+
+        .day-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid #edf2f7;
+            scroll-margin-top: 80px;
+        }
+
+        .day-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 24px;
+            background: linear-gradient(135deg, #f0f9fa 0%, #e8f4f6 100%);
+            border-bottom: 1px solid #e2e8f0;
+            flex-wrap: wrap;
+        }
+
+        .day-badge {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .day-header-info h2 {
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--text);
+            line-height: 1.3;
         }
 
-        .placeholder-pane p {
+        .day-header-info .day-theme {
+            font-size: 0.85rem;
             color: var(--text-light);
-            max-width: 400px;
+            letter-spacing: 0.5px;
         }
 
+        .day-tag {
+            margin-left: auto;
+            background: var(--accent-light);
+            color: #92400e;
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
+        }
+
+        .day-body {
+            padding: 24px;
+        }
+
+        /* 景点列表 */
+        .spots-list {
+            list-style: none;
+            display: grid;
+            gap: 14px;
+        }
+
+        .spot-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+            padding: 14px 16px;
+            background: #fafcfe;
+            border-radius: var(--radius-sm);
+            border: 1px solid #edf2f7;
+            transition: var(--transition);
+        }
+
+        .spot-item:hover {
+            background: var(--primary-light);
+            border-color: #bcd9de;
+        }
+
+        .spot-icon {
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            line-height: 1;
+            margin-top: 2px;
+        }
+
+        .spot-details h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+
+        .spot-details p {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* 美食与交通 */
+        .day-extras {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .extra-box {
+            background: #fafcfe;
+            border-radius: var(--radius-sm);
+            padding: 16px 18px;
+            border: 1px solid #edf2f7;
+        }
+
+        .extra-box h5 {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .extra-box p {
+            font-size: 0.83rem;
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+
+        /* ===== 实用提示 ===== */
+        .tips-section {
+            margin-top: 48px;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
+        }
+
+        .tip-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-sm);
+            padding: 20px;
+            box-shadow: var(--shadow);
+            border: 1px solid #edf2f7;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .tip-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .tip-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        .tip-card h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text);
+        }
+        .tip-card p {
+            font-size: 0.82rem;
+            color: var(--text-light);
+        }
+
+        /* ===== 页脚 ===== */
+        .footer {
+            text-align: center;
+            padding: 32px 20px;
+            color: var(--text-light);
+            font-size: 0.82rem;
+            border-top: 1px solid #e2e8f0;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== 响应式 ===== */
         @media (max-width: 768px) {
-            .app-header h1 {
-                font-size: 1.7rem;
+            .hero h1 {
+                font-size: 2.2rem;
             }
-            .tab-nav {
-                border-radius: 30px;
-                padding: 6px;
-                gap: 4px;
+            .hero {
+                padding: 50px 16px 45px;
             }
-            .tab-btn {
-                padding: 8px 14px;
-                font-size: 0.85rem;
-                min-width: 70px;
+            .hero-stats {
+                gap: 20px;
             }
-            .pane-iframe-wrapper {
-                height: 70vh;
+            .day-extras {
+                grid-template-columns: 1fr;
+            }
+            .day-header {
+                padding: 16px 18px;
+                gap: 12px;
+            }
+            .day-body {
+                padding: 18px;
+            }
+            .day-tag {
+                margin-left: 0;
+                width: 100%;
+                text-align: center;
+            }
+            .container {
+                padding: 24px 14px 40px;
+            }
+            .section-title {
+                font-size: 1.4rem;
+            }
+            .overview-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 8px;
+            }
+            .overview-card {
+                padding: 12px 8px;
+            }
+            .overview-card .day-num {
+                font-size: 1.2rem;
+            }
+            .overview-card .day-label {
+                font-size: 0.7rem;
+            }
+            .overview-card .day-location {
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .overview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .spot-item {
+                flex-direction: column;
+                gap: 8px;
+            }
+        }
+
+        /* 打印优化 */
+        @media print {
+            .nav-bar {
+                display: none;
+            }
+            .hero {
+                padding: 30px 20px;
+            }
+            .day-card {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #ddd;
             }
         }
     </style>
 </head>
 <body>
-    <div class="app-wrapper">
-        <header class="app-header">
-            <h1>🌍 城市旅游攻略</h1>
-            <p>选择一个城市，探索专属深度旅行计划</p>
-        </header>
 
-        <nav class="tab-nav" id="tabNav">
-            <button class="tab-btn active" data-target="shenzhen">深圳</button>
-            <button class="tab-btn" data-target="guangzhou">广州</button>
-            <button class="tab-btn" data-target="zhuhai">珠海</button>
-        </nav>
-
-        <div class="tab-content">
-            <div class="tab-pane active" id="shenzhen">
-                <div class="pane-iframe-wrapper">
-                    <iframe id="shenzhenFrame" title="深圳一周旅游攻略" srcdoc=""></iframe>
+    <!-- ===== 顶部横幅 ===== -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">🌴 深度旅行指南</span>
+            <h1>深圳一周旅游攻略</h1>
+            <p>从山海风光到都市繁华，7天带你领略深圳的多元魅力</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-number">7</span>
+                    <span class="hero-stat-label">天行程</span>
                 </div>
-            </div>
-            <div class="tab-pane" id="guangzhou">
-                <div class="placeholder-pane">
-                    <div class="icon">🌆</div>
-                    <h3>广州攻略 · 敬请期待</h3>
-                    <p>广州深度游攻略正在整理中，即将上线。</p>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">25+</span>
+                    <span class="hero-stat-label">精选景点</span>
                 </div>
-            </div>
-            <div class="tab-pane" id="zhuhai">
-                <div class="placeholder-pane">
-                    <div class="icon">🏝️</div>
-                    <h3>珠海攻略 · 敬请期待</h3>
-                    <p>珠海浪漫海岛之旅攻略制作中，敬请关注。</p>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">6</span>
+                    <span class="hero-stat-label">主题区域</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-number">∞</span>
+                    <span class="hero-stat-label">美食体验</span>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 
-    <!-- 深圳攻略模板（已去掉顶部Day导航，仅保留概览卡片跳转） -->
-    <script type="text/html" id="shenzhenGuideTemplate">
-        <!DOCTYPE html>
-        <html lang="zh-CN">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>深圳一周旅游攻略</title>
-            <style>
-                :root {
-                    --primary: #0a6e7c;
-                    --primary-light: #e8f4f6;
-                    --accent: #f59e0b;
-                    --accent-light: #fef3c7;
-                    --text: #1e293b;
-                    --text-light: #64748b;
-                    --bg: #f8fafc;
-                    --card-bg: #ffffff;
-                    --shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
-                    --shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.12);
-                    --radius: 16px;
-                    --radius-sm: 10px;
-                    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                    --font-sans: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
-                }
-                * { margin: 0; padding: 0; box-sizing: border-box; }
-                html { scroll-behavior: smooth; }
-                body {
-                    font-family: var(--font-sans);
-                    background: var(--bg);
-                    color: var(--text);
-                    line-height: 1.7;
-                    -webkit-font-smoothing: antialiased;
-                }
-                .hero {
-                    background: linear-gradient(135deg, #0a6e7c 0%, #0b8a9c 35%, #0d9eae 65%, #0fa3b8 100%);
-                    color: #fff;
-                    padding: 60px 20px 50px;
-                    text-align: center;
-                    position: relative;
-                    overflow: hidden;
-                }
-                .hero::before {
-                    content: '';
-                    position: absolute;
-                    top: -50%; left: -50%;
-                    width: 200%; height: 200%;
-                    background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.06) 0%, transparent 50%),
-                                radial-gradient(circle at 70% 60%, rgba(255,255,255,0.04) 0%, transparent 40%);
-                    animation: heroFloat 20s ease-in-out infinite;
-                    pointer-events: none;
-                }
-                @keyframes heroFloat { 0%,100% { transform: translate(0,0); } 50% { transform: translate(2%,-2%); } }
-                .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
-                .hero-badge { display: inline-block; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 6px 18px; border-radius: 50px; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.25); }
-                .hero h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; text-shadow: 0 2px 20px rgba(0,0,0,0.15); }
-                .hero p { font-size: 1.1rem; opacity: 0.92; max-width: 600px; margin: 0 auto; letter-spacing: 0.5px; }
-                .hero-stats { display: flex; justify-content: center; gap: 35px; margin-top: 30px; flex-wrap: wrap; }
-                .hero-stat { text-align: center; }
-                .hero-stat-number { font-size: 1.8rem; font-weight: 700; display: block; }
-                .hero-stat-label { font-size: 0.8rem; opacity: 0.8; letter-spacing: 1px; }
-                .container { max-width: 1000px; margin: 0 auto; padding: 30px 20px 50px; }
-                .overview-section { margin-bottom: 40px; }
-                .section-title { font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
-                .section-title .icon { font-size: 1.4rem; }
-                .section-subtitle { color: var(--text-light); font-size: 0.9rem; margin-bottom: 20px; letter-spacing: 0.3px; }
-                .overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
-                .overview-card {
-                    display: block;
-                    background: var(--card-bg);
-                    border-radius: var(--radius-sm);
-                    padding: 16px 12px;
-                    text-align: center;
-                    box-shadow: var(--shadow);
-                    transition: var(--transition);
-                    border: 1px solid #edf2f7;
-                    text-decoration: none;
-                    color: inherit;
-                    cursor: pointer;
-                }
-                .overview-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: var(--primary-light); }
-                .overview-card .day-num { font-size: 1.4rem; font-weight: 800; color: var(--primary); display: block; }
-                .overview-card .day-label { font-size: 0.75rem; color: var(--text-light); letter-spacing: 1px; margin-top: 2px; }
-                .overview-card .day-location { font-size: 0.7rem; color: var(--accent); font-weight: 600; margin-top: 6px; letter-spacing: 0.5px; }
-                .days-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
-                .day-card {
-                    background: var(--card-bg);
-                    border-radius: var(--radius);
-                    box-shadow: var(--shadow);
-                    overflow: hidden;
-                    transition: var(--transition);
-                    border: 1px solid #edf2f7;
-                    scroll-margin-top: 20px;
-                }
-                .day-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
-                .day-header { display: flex; align-items: center; gap: 14px; padding: 18px 22px; background: linear-gradient(135deg, #f0f9fa 0%, #e8f4f6 100%); border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; }
-                .day-badge { width: 42px; height: 42px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 700; flex-shrink: 0; }
-                .day-header-info h2 { font-size: 1.2rem; font-weight: 700; color: var(--text); line-height: 1.3; }
-                .day-header-info .day-theme { font-size: 0.8rem; color: var(--text-light); letter-spacing: 0.5px; }
-                .day-tag { margin-left: auto; background: var(--accent-light); color: #92400e; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; flex-shrink: 0; }
-                .day-body { padding: 20px 22px; }
-                .spots-list { list-style: none; display: grid; gap: 12px; }
-                .spot-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; background: #fafcfe; border-radius: var(--radius-sm); border: 1px solid #edf2f7; transition: var(--transition); }
-                .spot-item:hover { background: var(--primary-light); border-color: #bcd9de; }
-                .spot-icon { font-size: 1.3rem; flex-shrink: 0; line-height: 1; margin-top: 2px; }
-                .spot-details h4 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-                .spot-details p { font-size: 0.8rem; color: var(--text-light); line-height: 1.5; }
-                .day-extras { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
-                .extra-box { background: #fafcfe; border-radius: var(--radius-sm); padding: 14px 16px; border: 1px solid #edf2f7; }
-                .extra-box h5 { font-size: 0.8rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
-                .extra-box p { font-size: 0.78rem; color: var(--text-light); line-height: 1.5; }
-                .tips-section { margin-top: 40px; }
-                .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
-                .tip-card { background: var(--card-bg); border-radius: var(--radius-sm); padding: 18px; box-shadow: var(--shadow); border: 1px solid #edf2f7; text-align: center; transition: var(--transition); }
-                .tip-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
-                .tip-icon { font-size: 1.8rem; margin-bottom: 8px; }
-                .tip-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
-                .tip-card p { font-size: 0.78rem; color: var(--text-light); }
-                .footer { text-align: center; padding: 25px 20px; color: var(--text-light); font-size: 0.78rem; border-top: 1px solid #e2e8f0; letter-spacing: 0.5px; }
-                @media (max-width: 768px) {
-                    .hero h1 { font-size: 2rem; }
-                    .hero { padding: 40px 16px 35px; }
-                    .day-extras { grid-template-columns: 1fr; }
-                    .day-header { padding: 14px 16px; gap: 10px; }
-                    .day-body { padding: 16px; }
-                    .day-tag { margin-left: 0; width: 100%; text-align: center; }
-                    .container { padding: 20px 12px 35px; }
-                    .section-title { font-size: 1.3rem; }
-                    .overview-grid { grid-template-columns: repeat(4, 1fr); gap: 6px; }
-                    .overview-card { padding: 10px 6px; }
-                    .overview-card .day-num { font-size: 1rem; }
-                }
-                @media (max-width: 480px) {
-                    .overview-grid { grid-template-columns: repeat(2, 1fr); }
-                    .hero h1 { font-size: 1.6rem; }
-                    .spot-item { flex-direction: column; gap: 6px; }
-                }
-            </style>
-        </head>
-        <body>
-            <header class="hero">
-                <div class="hero-content">
-                    <span class="hero-badge">🌴 深度旅行指南</span>
-                    <h1>深圳一周旅游攻略</h1>
-                    <p>从山海风光到都市繁华，7天带你领略深圳的多元魅力</p>
-                    <div class="hero-stats">
-                        <div class="hero-stat"><span class="hero-stat-number">7</span><span class="hero-stat-label">天行程</span></div>
-                        <div class="hero-stat"><span class="hero-stat-number">25+</span><span class="hero-stat-label">精选景点</span></div>
-                        <div class="hero-stat"><span class="hero-stat-number">6</span><span class="hero-stat-label">主题区域</span></div>
-                        <div class="hero-stat"><span class="hero-stat-number">∞</span><span class="hero-stat-label">美食体验</span></div>
+    <!-- ===== 导航栏 ===== -->
+    <nav class="nav-bar" id="topNav">
+        <div class="nav-inner">
+            <a href="#overview" class="nav-link active">总览</a>
+            <a href="#day1" class="nav-link">Day 1</a>
+            <a href="#day2" class="nav-link">Day 2</a>
+            <a href="#day3" class="nav-link">Day 3</a>
+            <a href="#day4" class="nav-link">Day 4</a>
+            <a href="#day5" class="nav-link">Day 5</a>
+            <a href="#day6" class="nav-link">Day 6</a>
+            <a href="#day7" class="nav-link">Day 7</a>
+            <a href="#tips" class="nav-link">实用贴士</a>
+        </div>
+    </nav>
+
+    <!-- ===== 主体内容 ===== -->
+    <main class="container">
+
+        <!-- 一周概览 -->
+        <section class="overview-section" id="overview">
+            <h2 class="section-title"><span class="icon">📅</span> 一周概览</h2>
+            <p class="section-subtitle">快速浏览每日主题与核心区域</p>
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <span class="day-num">Day 1</span>
+                    <span class="day-label">南山·滨海</span>
+                    <span class="day-location">深圳湾 & 欢乐海岸</span>
+                </div>
+                <div class="overview-card">
+                    <span class="day-num">Day 2</span>
+                    <span class="day-label">南山·主题乐园</span>
+                    <span class="day-location">世界之窗 & 锦绣中华</span>
+                </div>
+                <div class="overview-card">
+                    <span class="day-num">Day 3</span>
+                    <span class="day-label">盐田·山海</span>
+                    <span class="day-location">东部华侨城 & 大梅沙</span>
+                </div>
+                <div class="overview-card">
+                    <span class="day-num">Day 4</span>
+                    <span class="day-label">福田·城市</span>
+                    <span class="day-location">莲花山 & 市民中心</span>
+                </div>
+                <div class="overview-card">
+                    <span class="day-num">Day 5</span>
+                    <span class="day-label">大鹏·古城</span>
+                    <span class="day-location">大鹏所城 & 杨梅坑</span>
+                </div>
+                <div class="overview-card">
+                    <span class="day-num">Day 6</span>
+                    <span class="day-label">罗湖·自然</span>
+                    <span class="day-location">仙湖植物园 & 梧桐山</span>
+                </div>
+                <div class="overview-card">
+                    <span class="day-num">Day 7</span>
+                    <span class="day-label">南山·文艺</span>
+                    <span class="day-location">南头古城 & 海上世界</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 每日行程 -->
+        <section class="days-grid">
+
+            <!-- Day 1 -->
+            <article class="day-card" id="day1">
+                <div class="day-header">
+                    <div class="day-badge">1</div>
+                    <div class="day-header-info">
+                        <h2>深圳湾公园 · 欢乐海岸 · 人才公园</h2>
+                        <span class="day-theme">🌊 滨海休闲日 · 南山区</span>
+                    </div>
+                    <span class="day-tag">🚶 步行+骑行 约5km</span>
+                </div>
+                <div class="day-body">
+                    <ul class="spots-list">
+                        <li class="spot-item">
+                            <span class="spot-icon">🌅</span>
+                            <div class="spot-details">
+                                <h4>深圳湾公园（上午）</h4>
+                                <p>沿着15公里滨海栈道漫步或骑行，远眺香港元朗，观赏红树林湿地与候鸟。推荐从红树林保护区入口开始，一路向南至人才公园。</p>
+                            </div>
+                        </li>
+                        <li class="spot-item">
+                            <span class="spot-icon">🎭</span>
+                            <div class="spot-details">
+                                <h4>欢乐海岸（下午）</h4>
+                                <p>集购物、餐饮、娱乐于一体的滨海商业区。可参观海洋奇梦馆，傍晚在曲水湾欣赏灯光秀，感受都市滨水活力。</p>
+                            </div>
+                        </li>
+                        <li class="spot-item">
+                            <span class="spot-icon">🌃</span>
+                            <div class="spot-details">
+                                <h4>深圳人才公园（傍晚）</h4>
+                                <p>深圳最新地标公园，以"人才"为主题。夜幕降临时，星光大道与湖面倒影交相辉映，是拍摄深圳湾夜景的绝佳位置。</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="day-extras">
+                        <div class="extra-box">
+                            <h5>🍜 推荐美食</h5>
+                            <p>欢乐海岸「探鱼」烤鱼、「润园四季」椰子鸡（深圳特色）、「gaga鲜语」轻食下午茶。</p>
+                        </div>
+                        <div class="extra-box">
+                            <h5>🚇 交通提示</h5>
+                            <p>地铁9号线"深圳湾公园"站C/D口出即达。全程可步行+共享单车，无需换乘其他交通。</p>
+                        </div>
                     </div>
                 </div>
-            </header>
+            </article>
 
-            <main class="container">
-                <section class="overview-section">
-                    <h2 class="section-title"><span class="icon">📅</span> 一周概览</h2>
-                    <p class="section-subtitle">点击卡片快速跳转到每日详情</p>
-                    <div class="overview-grid">
-                        <a class="overview-card" href="#day1"><span class="day-num">Day 1</span><span class="day-label">南山·滨海</span><span class="day-location">深圳湾 & 欢乐海岸</span></a>
-                        <a class="overview-card" href="#day2"><span class="day-num">Day 2</span><span class="day-label">南山·主题乐园</span><span class="day-location">世界之窗 & 锦绣中华</span></a>
-                        <a class="overview-card" href="#day3"><span class="day-num">Day 3</span><span class="day-label">盐田·山海</span><span class="day-location">东部华侨城 & 大梅沙</span></a>
-                        <a class="overview-card" href="#day4"><span class="day-num">Day 4</span><span class="day-label">福田·城市</span><span class="day-location">莲花山 & 市民中心</span></a>
-                        <a class="overview-card" href="#day5"><span class="day-num">Day 5</span><span class="day-label">大鹏·古城</span><span class="day-location">大鹏所城 & 杨梅坑</span></a>
-                        <a class="overview-card" href="#day6"><span class="day-num">Day 6</span><span class="day-label">罗湖·自然</span><span class="day-location">仙湖植物园 & 梧桐山</span></a>
-                        <a class="overview-card" href="#day7"><span class="day-num">Day 7</span><span class="day-label">南山·文艺</span><span class="day-location">南头古城 & 海上世界</span></a>
+            <!-- Day 2 -->
+            <article class="day-card" id="day2">
+                <div class="day-header">
+                    <div class="day-badge">2</div>
+                    <div class="day-header-info">
+                        <h2>世界之窗 · 锦绣中华民俗村</h2>
+                        <span class="day-theme">🎡 主题乐园日 · 南山区</span>
                     </div>
-                </section>
-
-                <section class="days-grid">
-                    <article class="day-card" id="day1">
-                        <div class="day-header"><div class="day-badge">1</div><div class="day-header-info"><h2>深圳湾公园 · 欢乐海岸 · 人才公园</h2><span class="day-theme">🌊 滨海休闲日 · 南山区</span></div><span class="day-tag">🚶 步行+骑行 约5km</span></div>
-                        <div class="day-body">
-                            <ul class="spots-list">
-                                <li class="spot-item"><span class="spot-icon">🌅</span><div class="spot-details"><h4>深圳湾公园（上午）</h4><p>沿着15公里滨海栈道漫步或骑行，远眺香港元朗，观赏红树林湿地与候鸟。</p></div></li>
-                                <li class="spot-item"><span class="spot-icon">🎭</span><div class="spot-details"><h4>欢乐海岸（下午）</h4><p>集购物、餐饮、娱乐于一体的滨海商业区，傍晚欣赏灯光秀。</p></div></li>
-                                <li class="spot-item"><span class="spot-icon">🌃</span><div class="spot-details"><h4>深圳人才公园（傍晚）</h4><p>深圳最新地标公园，拍摄深圳湾夜景的绝佳位置。</p></div></li>
-                            </ul>
-                            <div class="day-extras"><div class="extra-box"><h5>🍜 推荐美食</h5><p>欢乐海岸「探鱼」烤鱼、「润园四季」椰子鸡、「gaga鲜语」轻食。</p></div><div class="extra-box"><h5>🚇 交通提示</h5><p>地铁9号线"深圳湾公园"站C/D口出即达。</p></div></div>
+                    <span class="day-tag">🎢 全天游览</span>
+                </div>
+                <div class="day-body">
+                    <ul class="spots-list">
+                        <li class="spot-item">
+                            <span class="spot-icon">🗼</span>
+                            <div class="spot-details">
+                                <h4>世界之窗（上午+下午）</h4>
+                                <p>深圳最经典的微缩景观主题公园，汇集埃菲尔铁塔、金字塔、泰姬陵等130多处世界著名景点。推荐观看大型歌舞表演《盛世纪》，体验飞跃美利坚4D影院。</p>
+                            </div>
+                        </li>
+                        <li class="spot-item">
+                            <span class="spot-icon">🏮</span>
+                            <div class="spot-details">
+                                <h4>锦绣中华·民俗村（傍晚+夜场）</h4>
+                                <p>紧邻世界之窗，可购买联票。白天观赏中国微缩景观，夜晚在民俗村体验少数民族风情表演和灯光秀，感受中华文化多样性。</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="day-extras">
+                        <div class="extra-box">
+                            <h5>🍜 推荐美食</h5>
+                            <p>世界之窗内「巴黎春天」法式餐厅体验异国风情；或到附近益田假日广场「太二酸菜鱼」、「蔡澜港式点心」。</p>
                         </div>
-                    </article>
-                    <article class="day-card" id="day2">
-                        <div class="day-header"><div class="day-badge">2</div><div class="day-header-info"><h2>世界之窗 · 锦绣中华民俗村</h2><span class="day-theme">🎡 主题乐园日 · 南山区</span></div><span class="day-tag">🎢 全天游览</span></div>
-                        <div class="day-body">
-                            <ul class="spots-list">
-                                <li class="spot-item"><span class="spot-icon">🗼</span><div class="spot-details"><h4>世界之窗（上午+下午）</h4><p>深圳最经典的微缩景观主题公园，汇集130多处世界著名景点。</p></div></li>
-                                <li class="spot-item"><span class="spot-icon">🏮</span><div class="spot-details"><h4>锦绣中华·民俗村（傍晚+夜场）</h4><p>白天观赏中国微缩景观，夜晚体验少数民族风情表演和灯光秀。</p></div></li>
-                            </ul>
-                            <div class="day-extras"><div class="extra-box"><h5>🍜 推荐美食</h5><p>世界之窗内「巴黎春天」法式餐厅、益田假日广场「太二酸菜鱼」。</p></div><div class="extra-box"><h5>🚇 交通提示</h5><p>地铁1号线/2号线"世界之窗"站H口出。</p></div></div>
+                        <div class="extra-box">
+                            <h5>🚇 交通提示</h5>
+                            <p>地铁1号线/2号线"世界之窗"站H口出。两园步行距离仅300米，建议购买联票更划算。</p>
                         </div>
-                    </article>
-                    <article class="day-card" id="day3">
-                        <div class="day-header"><div class="day-badge">3</div><div class="day-header-info"><h2>东部华侨城 · 大梅沙海滨</h2><span class="day-theme">🏔️ 山海度假日 · 盐田区</span></div><span class="day-tag">🚠 全天户外</span></div>
-                        <div class="day-body">
-                            <ul class="spots-list">
-                                <li class="spot-item"><span class="spot-icon">🏞️</span><div class="spot-details"><h4>东部华侨城（上午+下午）</h4><p>大侠谷和茶溪谷两大区域，乘森林小火车穿梭山谷。</p></div></li>
-                                <li class="spot-item"><span class="spot-icon">🏖️</span><div class="spot-details"><h4>大梅沙海滨公园（傍晚）</h4><p>深圳最著名的免费海滩之一，夕阳下漫步沙滩。</p></div></li>
-                            </ul>
-                            <div class="day-extras"><div class="extra-box"><h5>🍜 推荐美食</h5><p>大梅沙「师公会海鲜酒家」老字号海鲜。</p></div><div class="extra-box"><h5>🚇 交通提示</h5><p>地铁8号线"大梅沙"站（2024年开通）或公交M362。</p></div></div>
-                        </div>
-                    </article>
-                    <article class="day-card" id="day4">
-                        <div class="day-header"><div class="day-badge">4</div><div class="day-header-info"><h2>莲花山公园 · 市民中心 · 深圳博物馆</h2><span class="day-theme">🏙️ 城市文化日 · 福田区</span></div><span class="day-tag">📚 文化漫步</span></div>
-                        <div class="day-body">
-                            <ul class="spots-list">
-                                <li class="spot-item"><span class="spot-icon">⛰️</span><div class="spot-details"><h4>莲花山公园（上午）</h4><p>登顶俯瞰福田CBD全景，瞻仰邓小平铜像。</p></div></li>
-                                <li class="spot-item"><span class="spot-icon">🏛️</span><div class="spot-details"><h4>深圳博物馆（下午）</h4><p>了解深圳从边陲小镇到国际化都市的蜕变历史。</p></div></li>
-                                <li class="spot-item"><span class="spot-icon">🌆</span><div class="spot-details"><h4>市民中心 & 灯光秀（傍晚）</h4><p>地标建筑群，周五/周六晚上可欣赏灯光秀。</p></div></li>
-                            </ul>
-                            <div class="day-extras"><div class="extra-box"><h5>🍜 推荐美食</h5><p>「凤凰楼」早茶、「润园四季」椰子鸡。</p></div><div class="extra-box"><h5>🚇 交通提示</h5><p>地铁3/4号线"少年宫"站或"市民中心"站。</p></div></div>
-                        </div>
-                    </article>
-                    <article class="day-card" id="day5">
-                        <div class="day-header"><div class="day-badge">5</div><div class="day-header-info"><h2>大鹏所城 · 较场尾 · 杨梅坑</h2><span class="day-theme">🏰 古城滨海日 · 大鹏新区</span></div><span class="day-tag">🚌 远郊一日</span></div>
-                        <div class="day-body">
-                            <ul class="spots-list">
-                                <li class="spot-item"><span class="spot-icon">🏯</span><div class="spot-details"><h4>大鹏所城（上午）</h4><p>深圳唯一的国家级文物保护单位，明清海防古城。</p></div></li>
-                                <li class="spot-item"><span class="spot-icon">⛱️</span><div class="spot-details"><h4>较场尾（中午+下午）</h4><p>被誉为"深圳鼓浪屿"，彩色民宿与海滩完美结合。</p></div></li>
-                                <li class="spot-item"><span class="spot-icon">🚴</span><div class="spot-details"><h4>杨梅坑（下午+傍晚）</h4><p>《美人鱼》取景地，山海骑行或徒步。</p></div></li>
-                            </ul>
-                            <div class="day-extras"><div class="extra-box"><h5>🍜 推荐美食</h5><p>较场尾「鹏城人家」海鲜、大鹏所城「肥妈小吃」濑粉仔。</p></div><div class="extra-box"><h5>🚇 交通提示</h5><p>市区乘E11路到大鹏中心，转M471/M457。</p></div></div>
-                        </div>
-                    </article>
-                    <article class="day-card" id="day6">
-                        <div class="day-header"><div class="day-badge">6</div><div class="day-header-info"><h2>仙湖植物园 · 梧桐山</h2><span class="day-theme">🌿 自然探索日 · 罗湖区</span></div><span class="day-tag">🥾 轻徒步</span></div>
-                        <div class="day-body">
-                            <ul class="spots-list">
-                                <li class="spot-item"><span class="spot-icon">🌸</span><div class="spot-details"><h4>仙湖植物园（上午）</h4><p>深圳最大的植物园，弘法寺香火旺盛。</p></div></li>
-                                <li class="spot-item"><span class="spot-icon">⛰️</span><div class="spot-details"><h4>梧桐山（下午）</h4><p>深圳第一高峰，登顶俯瞰全景。</p></div></li>
-                            </ul>
-                            <div class="day-extras"><div class="extra-box"><h5>🍜 推荐美食</h5><p>仙湖植物园门口「素菜馆」斋饭、莲塘「客家豆腐坊」。</p></div><div class="extra-box"><h5>🚇 交通提示</h5><p>地铁2/8号线"仙湖路"站C口出。</p></div></div>
-                        </div>
-                    </article>
-                    <article class="day-card" id="day7">
-                        <div class="day-header"><div class="day-badge">7</div><div class="day-header-info"><h2>南头古城 · 海上世界 · 蛇口老街</h2><span class="day-theme">🎨 文艺慢游日 · 南山区</span></div><span class="day-tag">☕ 悠闲收尾</span></div>
-                        <div class="day-body">
-                            <ul class="spots-list">
-                                <li class="spot-item"><span class="spot-icon">🏘️</span><div class="spot-details"><h4>南头古城（上午）</h4><p>深圳城市原点，融合历史与文创。</p></div></li>
-                                <li class="spot-item"><span class="spot-icon">🚢</span><div class="spot-details"><h4>海上世界（下午）</h4><p>国际化街区，参观文化艺术中心。</p></div></li>
-                                <li class="spot-item"><span class="spot-icon">🍽️</span><div class="spot-details"><h4>蛇口老街（傍晚）</h4><p>深圳最具烟火气的老街，品尝地道小吃。</p></div></li>
-                            </ul>
-                            <div class="day-extras"><div class="extra-box"><h5>🍜 推荐美食</h5><p>蛇口「德记烧腊」叉烧、「百草堂」糖水。</p></div><div class="extra-box"><h5>🚇 交通提示</h5><p>地铁12号线"南头古城"站、2号线"海上世界"站。</p></div></div>
-                        </div>
-                    </article>
-                </section>
-
-                <section class="tips-section">
-                    <h2 class="section-title"><span class="icon">💡</span> 实用贴士</h2>
-                    <p class="section-subtitle">让旅行更顺畅的小建议</p>
-                    <div class="tips-grid">
-                        <div class="tip-card"><div class="tip-icon">🚇</div><h4>交通出行</h4><p>深圳地铁覆盖广泛，推荐使用"深圳通"小程序扫码乘车。</p></div>
-                        <div class="tip-card"><div class="tip-icon">🌤️</div><h4>最佳季节</h4><p>10月至次年4月气候宜人，适合户外活动。</p></div>
-                        <div class="tip-card"><div class="tip-icon">🏨</div><h4>住宿推荐</h4><p>建议住在福田中心区或南山区，交通便利。</p></div>
-                        <div class="tip-card"><div class="tip-icon">📱</div><h4>必备App</h4><p>高德地图、大众点评、深圳地铁官方App。</p></div>
                     </div>
-                </section>
-            </main>
-            <footer class="footer">
-                <p>🌴 深圳一周深度游攻略 · 愿你在深圳的每一天都精彩纷呈</p>
-            </footer>
-            <script>
-                // 确保所有锚点链接都能平滑滚动，即使默认行为被干扰也能手动处理
-                (function() {
-                    // 等待DOM完全加载后绑定事件
-                    function bindAnchorClicks() {
-                        document.querySelectorAll('a[href^="#"]').forEach(link => {
-                            link.removeEventListener('click', handleClick);
-                            link.addEventListener('click', handleClick);
-                        });
-                    }
+                </div>
+            </article>
 
-                    function handleClick(e) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href').substring(1);
-                        const target = document.getElementById(targetId);
-                        if (target) {
-                            // 计算目标位置，考虑固定元素偏移（这里没有固定导航条，所以偏移很小）
-                            const offset = 20; // 给一点呼吸空间
-                            const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
-                            window.scrollTo({
-                                top: top,
-                                behavior: 'smooth'
-                            });
-                        }
-                    }
+            <!-- Day 3 -->
+            <article class="day-card" id="day3">
+                <div class="day-header">
+                    <div class="day-badge">3</div>
+                    <div class="day-header-info">
+                        <h2>东部华侨城 · 大梅沙海滨</h2>
+                        <span class="day-theme">🏔️ 山海度假日 · 盐田区</span>
+                    </div>
+                    <span class="day-tag">🚠 全天户外</span>
+                </div>
+                <div class="day-body">
+                    <ul class="spots-list">
+                        <li class="spot-item">
+                            <span class="spot-icon">🏞️</span>
+                            <div class="spot-details">
+                                <h4>东部华侨城（上午+下午）</h4>
+                                <p>包含大侠谷（生态乐园）和茶溪谷（度假公园）两大区域。乘森林小火车穿梭山谷，体验云海索道俯瞰山海全景，在茵特拉根小镇感受欧式风情。</p>
+                            </div>
+                        </li>
+                        <li class="spot-item">
+                            <span class="spot-icon">🏖️</span>
+                            <div class="spot-details">
+                                <h4>大梅沙海滨公园（傍晚）</h4>
+                                <p>深圳最著名的免费海滩之一。在夕阳下漫步沙滩，感受海风拂面。可登上愿望塔俯瞰整个海湾，夜晚在海边餐厅享用海鲜大餐。</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="day-extras">
+                        <div class="extra-box">
+                            <h5>🍜 推荐美食</h5>
+                            <p>大梅沙「师公会海鲜酒家」老字号海鲜、「渔米之乡」粤菜、盐田夜市街边小吃。</p>
+                        </div>
+                        <div class="extra-box">
+                            <h5>🚇 交通提示</h5>
+                            <p>地铁8号线"大梅沙"站（2024年开通）或乘公交M362/M465直达。建议早出发，东部华侨城需预留4-5小时。</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
 
-                    if (document.readyState === 'loading') {
-                        document.addEventListener('DOMContentLoaded', bindAnchorClicks);
-                    } else {
-                        bindAnchorClicks();
-                    }
-                })();
-            </script>
-        </body>
-        </html>
-    </script>
+            <!-- Day 4 -->
+            <article class="day-card" id="day4">
+                <div class="day-header">
+                    <div class="day-badge">4</div>
+                    <div class="day-header-info">
+                        <h2>莲花山公园 · 市民中心 · 深圳博物馆</h2>
+                        <span class="day-theme">🏙️ 城市文化日 · 福田区</span>
+                    </div>
+                    <span class="day-tag">📚 文化漫步</span>
+                </div>
+                <div class="day-body">
+                    <ul class="spots-list">
+                        <li class="spot-item">
+                            <span class="spot-icon">⛰️</span>
+                            <div class="spot-details">
+                                <h4>莲花山公园（上午）</h4>
+                                <p>深圳中心区的"城市绿肺"。登顶仅需15分钟，山顶广场可俯瞰福田CBD全景，瞻仰邓小平铜像，感受改革开放精神。</p>
+                            </div>
+                        </li>
+                        <li class="spot-item">
+                            <span class="spot-icon">🏛️</span>
+                            <div class="spot-details">
+                                <h4>深圳博物馆（下午）</h4>
+                                <p>了解深圳从边陲小镇到国际化都市的蜕变历史。常设展览包括"古代深圳"、"近代深圳"、"深圳改革开放史"等，免费参观。</p>
+                            </div>
+                        </li>
+                        <li class="spot-item">
+                            <span class="spot-icon">🌆</span>
+                            <div class="spot-details">
+                                <h4>市民中心 & 灯光秀（傍晚）</h4>
+                                <p>深圳地标建筑群，大鹏展翅造型极具辨识度。周五/周六晚上可在广场欣赏福田CBD灯光秀，感受科技之城的璀璨夜景。</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="day-extras">
+                        <div class="extra-box">
+                            <h5>🍜 推荐美食</h5>
+                            <p>「凤凰楼」早茶（深圳老字号）、「润园四季」椰子鸡、「农耕记」湖南菜，均在福田中心区。</p>
+                        </div>
+                        <div class="extra-box">
+                            <h5>🚇 交通提示</h5>
+                            <p>地铁3/4号线"少年宫"站或"市民中心"站。三个地点步行串联，全天无需换乘。</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
 
+            <!-- Day 5 -->
+            <article class="day-card" id="day5">
+                <div class="day-header">
+                    <div class="day-badge">5</div>
+                    <div class="day-header-info">
+                        <h2>大鹏所城 · 较场尾 · 杨梅坑</h2>
+                        <span class="day-theme">🏰 古城滨海日 · 大鹏新区</span>
+                    </div>
+                    <span class="day-tag">🚌 远郊一日</span>
+                </div>
+                <div class="day-body">
+                    <ul class="spots-list">
+                        <li class="spot-item">
+                            <span class="spot-icon">🏯</span>
+                            <div class="spot-details">
+                                <h4>大鹏所城（上午）</h4>
+                                <p>深圳唯一的国家级文物保护单位，明清海防古城。漫步青石板路，参观赖恩爵将军第、大鹏粮仓，感受600年历史沧桑。</p>
+                            </div>
+                        </li>
+                        <li class="spot-item">
+                            <span class="spot-icon">⛱️</span>
+                            <div class="spot-details">
+                                <h4>较场尾（中午+下午）</h4>
+                                <p>被誉为"深圳鼓浪屿"，彩色民宿群落与海滩完美结合。可体验海上摩托、帆板等水上运动，或在海边咖啡馆悠闲度过午后时光。</p>
+                            </div>
+                        </li>
+                        <li class="spot-item">
+                            <span class="spot-icon">🚴</span>
+                            <div class="spot-details">
+                                <h4>杨梅坑（下午+傍晚）</h4>
+                                <p>《美人鱼》取景地，拥有深圳最清澈的海域。沿鹿嘴大道骑行或徒步，一路山海相伴，终点鹿嘴山庄悬崖海景震撼人心。</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="day-extras">
+                        <div class="extra-box">
+                            <h5>🍜 推荐美食</h5>
+                            <p>较场尾「鹏城人家」海鲜、大鹏所城「肥妈小吃」濑粉仔（客家特色）、「将军宴」传统客家菜。</p>
+                        </div>
+                        <div class="extra-box">
+                            <h5>🚇 交通提示</h5>
+                            <p>市区乘E11路或旅游专线到大鹏中心，转M471/M457。建议自驾或包车，全程约1.5小时，早7点出发最佳。</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Day 6 -->
+            <article class="day-card" id="day6">
+                <div class="day-header">
+                    <div class="day-badge">6</div>
+                    <div class="day-header-info">
+                        <h2>仙湖植物园 · 梧桐山</h2>
+                        <span class="day-theme">🌿 自然探索日 · 罗湖区</span>
+                    </div>
+                    <span class="day-tag">🥾 轻徒步</span>
+                </div>
+                <div class="day-body">
+                    <ul class="spots-list">
+                        <li class="spot-item">
+                            <span class="spot-icon">🌸</span>
+                            <div class="spot-details">
+                                <h4>仙湖植物园（上午）</h4>
+                                <p>深圳最大的植物园，拥有苏铁保存中心、化石森林、弘法寺等。春季桃花、夏季荷花、秋季落羽杉，四季皆景。弘法寺香火旺盛，可体验禅意。</p>
+                            </div>
+                        </li>
+                        <li class="spot-item">
+                            <span class="spot-icon">⛰️</span>
+                            <div class="spot-details">
+                                <h4>梧桐山（下午）</h4>
+                                <p>深圳第一高峰，海拔943.7米。推荐走"凌云道"或"泰山涧"步道，登顶可俯瞰深圳全景和香港北部。体力有限者可选"梧桐山北路"较平缓路线。</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="day-extras">
+                        <div class="extra-box">
+                            <h5>🍜 推荐美食</h5>
+                            <p>仙湖植物园门口「素菜馆」斋饭、莲塘「客家豆腐坊」酿豆腐、「龙记桂林米粉」老字号。</p>
+                        </div>
+                        <div class="extra-box">
+                            <h5>🚇 交通提示</h5>
+                            <p>地铁2/8号线"仙湖路"站C口出步行即到仙湖植物园。梧桐山多个登山口，建议从仙湖植物园北门进入梧桐山景区。</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Day 7 -->
+            <article class="day-card" id="day7">
+                <div class="day-header">
+                    <div class="day-badge">7</div>
+                    <div class="day-header-info">
+                        <h2>南头古城 · 海上世界 · 蛇口老街</h2>
+                        <span class="day-theme">🎨 文艺慢游日 · 南山区</span>
+                    </div>
+                    <span class="day-tag">☕ 悠闲收尾</span>
+                </div>
+                <div class="day-body">
+                    <ul class="spots-list">
+                        <li class="spot-item">
+                            <span class="spot-icon">🏘️</span>
+                            <div class="spot-details">
+                                <h4>南头古城（上午）</h4>
+                                <p>深圳城市原点，1700年历史。经过改造后融合了历史遗迹、文创小店、艺术展览和特色餐饮。推荐参观新安县衙、东莞会馆，逛逛"叠园"和"光合社"。</p>
+                            </div>
+                        </li>
+                        <li class="spot-item">
+                            <span class="spot-icon">🚢</span>
+                            <div class="spot-details">
+                                <h4>海上世界（下午）</h4>
+                                <p>以明华轮为核心的国际化街区。参观海上世界文化艺术中心（设计互联），在滨海栈道散步，逛蛇口创意市集，感受深圳的国际化氛围。</p>
+                            </div>
+                        </li>
+                        <li class="spot-item">
+                            <span class="spot-icon">🍽️</span>
+                            <div class="spot-details">
+                                <h4>蛇口老街（傍晚）</h4>
+                                <p>深圳最具烟火气的老街之一。穿梭于海鲜市场和老字号店铺之间，在蛇口市场选购海鲜代加工，或品尝地道潮汕小吃，为旅程画上完美句号。</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="day-extras">
+                        <div class="extra-box">
+                            <h5>🍜 推荐美食</h5>
+                            <p>蛇口「德记烧腊」叉烧、「嘉华小吃」煲仔饭、「百草堂」糖水（20年老店）、海上世界「星美乐」西餐。</p>
+                        </div>
+                        <div class="extra-box">
+                            <h5>🚇 交通提示</h5>
+                            <p>地铁12号线"南头古城"站C口出；海上世界乘地铁2号线"海上世界"站A口。两处相距约15分钟车程。</p>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+        </section>
+
+        <!-- 实用贴士 -->
+        <section class="tips-section" id="tips">
+            <h2 class="section-title"><span class="icon">💡</span> 实用贴士</h2>
+            <p class="section-subtitle">让旅行更顺畅的小建议</p>
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-icon">🚇</div>
+                    <h4>交通出行</h4>
+                    <p>深圳地铁覆盖广泛，推荐使用"深圳通"小程序扫码乘车。去大鹏、盐田建议提前规划，周末易堵车。</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🌤️</div>
+                    <h4>最佳季节</h4>
+                    <p>10月至次年4月气候宜人，适合户外活动。夏季注意防晒和台风预警，冬季海滨风大需添衣。</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">🏨</div>
+                    <h4>住宿推荐</h4>
+                    <p>建议住在福田中心区或南山区，交通便利。大鹏过夜可选较场尾民宿，体验海边清晨。</p>
+                </div>
+                <div class="tip-card">
+                    <div class="tip-icon">📱</div>
+                    <h4>必备App</h4>
+                    <p>高德地图/百度地图、大众点评（找美食）、深圳地铁官方App、美团（购票优惠）。</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== 页脚 ===== -->
+    <footer class="footer">
+        <p>🌴 深圳一周深度游攻略 · 愿你在深圳的每一天都精彩纷呈</p>
+        <p style="margin-top:6px; opacity:0.7;">行程建议仅供参考，请根据实际情况灵活调整</p>
+    </footer>
+
+    <!-- ===== JavaScript ===== -->
     <script>
         (function() {
-            // 将深圳攻略模板注入iframe
-            const shenzhenFrame = document.getElementById('shenzhenFrame');
-            const template = document.getElementById('shenzhenGuideTemplate');
-            if (shenzhenFrame && template) {
-                shenzhenFrame.setAttribute('srcdoc', template.innerHTML);
-            }
+            // 导航栏滚动高亮
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.day-card, .overview-section, .tips-section');
+            const navBar = document.getElementById('topNav');
 
-            // 标签页切换逻辑
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabPanes = document.querySelectorAll('.tab-pane');
-
-            function switchTab(targetId) {
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabPanes.forEach(pane => pane.classList.remove('active'));
-
-                const activeButton = document.querySelector(`.tab-btn[data-target="${targetId}"]`);
-                const activePane = document.getElementById(targetId);
-                if (activeButton) activeButton.classList.add('active');
-                if (activePane) activePane.classList.add('active');
-            }
-
-            tabButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const target = this.getAttribute('data-target');
-                    switchTab(target);
+            // 平滑滚动
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const target = document.getElementById(targetId);
+                    if (target) {
+                        const navHeight = navBar.offsetHeight;
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset -
+                            navHeight - 16;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
                 });
             });
 
-            // 默认激活深圳
-            switchTab('shenzhen');
+            // 滚动监听 - 高亮当前导航
+            function updateActiveNav() {
+                const scrollPos = window.scrollY + navBar.offsetHeight + 50;
+
+                let currentId = 'overview';
+                sections.forEach(section => {
+                    if (section.offsetTop <= scrollPos) {
+                        currentId = section.id;
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + currentId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            window.addEventListener('scroll', updateActiveNav);
+            window.addEventListener('load', updateActiveNav);
+
+            // 卡片入场动画（Intersection Observer）
+            const dayCards = document.querySelectorAll('.day-card');
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.style.opacity = '1';
+                            entry.target.style.transform = 'translateY(0)';
+                        }
+                    });
+                }, {
+                    threshold: 0.05,
+                    rootMargin: '0px 0px -40px 0px'
+                });
+
+                dayCards.forEach((card, index) => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(24px)';
+                    card.style.transition =
+                        'opacity 0.5s ease ' + (index * 0.06) + 's, transform 0.5s ease ' + (index * 0.06) +
+                        's';
+                    observer.observe(card);
+                });
+            }
+
+            // 触摸设备优化：导航栏点击后自动滚动到可视区域
+            if ('ontouchstart' in window) {
+                navLinks.forEach(link => {
+                    link.addEventListener('touchstart', function() {
+                        // 不需要额外处理，click 事件会触发
+                    });
+                });
+            }
         })();
     </script>
 </body>
