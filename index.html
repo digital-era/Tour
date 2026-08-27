@@ -21,13 +21,7 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --font-sans: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: var(--font-sans);
             background: var(--bg);
@@ -39,7 +33,6 @@
             flex-direction: column;
             align-items: center;
         }
-
         .app-wrapper {
             width: 100%;
             max-width: 1200px;
@@ -48,13 +41,11 @@
             flex-direction: column;
             min-height: 100vh;
         }
-
         .app-header {
             text-align: center;
             margin-bottom: 24px;
             padding: 30px 10px 10px;
         }
-
         .app-header h1 {
             font-size: 2.2rem;
             font-weight: 800;
@@ -62,13 +53,11 @@
             letter-spacing: -0.5px;
             margin-bottom: 6px;
         }
-
         .app-header p {
             color: var(--text-light);
             font-size: 0.95rem;
             letter-spacing: 0.5px;
         }
-
         .tab-nav {
             display: flex;
             gap: 8px;
@@ -80,7 +69,6 @@
             flex-wrap: wrap;
             justify-content: center;
         }
-
         .tab-btn {
             flex: 1 1 auto;
             min-width: 100px;
@@ -96,43 +84,15 @@
             letter-spacing: 0.5px;
             white-space: nowrap;
         }
-
-        .tab-btn:hover {
-            background: var(--primary-light);
-            color: var(--primary);
-        }
-        .tab-btn.active {
-            background: var(--primary);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(10, 110, 124, 0.3);
-        }
-
-        .tab-content {
-            flex: 1;
-            background: transparent;
-            border-radius: var(--radius);
-            min-height: 600px;
-        }
-
-        .tab-pane {
-            display: none;
-            animation: fadeIn 0.35s ease;
-        }
-        .tab-pane.active {
-            display: block;
-        }
-
+        .tab-btn:hover { background: var(--primary-light); color: var(--primary); }
+        .tab-btn.active { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(10, 110, 124, 0.3); }
+        .tab-content { flex: 1; background: transparent; border-radius: var(--radius); min-height: 600px; }
+        .tab-pane { display: none; animation: fadeIn 0.35s ease; }
+        .tab-pane.active { display: block; }
         @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(12px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
         .pane-iframe-wrapper {
             background: #fff;
             border-radius: var(--radius);
@@ -142,14 +102,7 @@
             height: 80vh;
             min-height: 600px;
         }
-
-        .pane-iframe-wrapper iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-
+        .pane-iframe-wrapper iframe { width: 100%; height: 100%; border: none; display: block; }
         .placeholder-pane {
             background: #fff;
             border-radius: var(--radius);
@@ -164,38 +117,14 @@
             justify-content: center;
             gap: 16px;
         }
-
-        .placeholder-pane .icon {
-            font-size: 4rem;
-            opacity: 0.6;
-        }
-        .placeholder-pane h3 {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--text);
-        }
-        .placeholder-pane p {
-            color: var(--text-light);
-            max-width: 400px;
-        }
-
+        .placeholder-pane .icon { font-size: 4rem; opacity: 0.6; }
+        .placeholder-pane h3 { font-size: 1.6rem; font-weight: 700; color: var(--text); }
+        .placeholder-pane p { color: var(--text-light); max-width: 400px; }
         @media (max-width: 768px) {
-            .app-header h1 {
-                font-size: 1.7rem;
-            }
-            .tab-nav {
-                border-radius: 30px;
-                padding: 6px;
-                gap: 4px;
-            }
-            .tab-btn {
-                padding: 8px 14px;
-                font-size: 0.85rem;
-                min-width: 70px;
-            }
-            .pane-iframe-wrapper {
-                height: 70vh;
-            }
+            .app-header h1 { font-size: 1.7rem; }
+            .tab-nav { border-radius: 30px; padding: 6px; gap: 4px; }
+            .tab-btn { padding: 8px 14px; font-size: 0.85rem; min-width: 70px; }
+            .pane-iframe-wrapper { height: 70vh; }
         }
     </style>
 </head>
@@ -235,7 +164,7 @@
         </div>
     </div>
 
-    <!-- 隐藏的深圳攻略模板（包含锚点跳转） -->
+    <!-- 深圳攻略模板（含修复后的锚点跳转脚本） -->
     <script type="text/html" id="shenzhenGuideTemplate">
         <!DOCTYPE html>
         <html lang="zh-CN">
@@ -269,7 +198,7 @@
                     line-height: 1.7;
                     -webkit-font-smoothing: antialiased;
                 }
-                /* 顶部导航（日内） */
+                /* 顶部日内导航 */
                 .day-nav {
                     position: sticky;
                     top: 0;
@@ -297,10 +226,7 @@
                     transition: var(--transition);
                     flex-shrink: 0;
                 }
-                .day-nav a:hover {
-                    background: var(--primary);
-                    color: #fff;
-                }
+                .day-nav a:hover { background: var(--primary); color: #fff; }
                 .hero {
                     background: linear-gradient(135deg, #0a6e7c 0%, #0b8a9c 35%, #0d9eae 65%, #0fa3b8 100%);
                     color: #fff;
@@ -347,11 +273,7 @@
                     color: inherit;
                     cursor: pointer;
                 }
-                .overview-card:hover {
-                    transform: translateY(-3px);
-                    box-shadow: var(--shadow-hover);
-                    border-color: var(--primary-light);
-                }
+                .overview-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); border-color: var(--primary-light); }
                 .overview-card .day-num { font-size: 1.4rem; font-weight: 800; color: var(--primary); display: block; }
                 .overview-card .day-label { font-size: 0.75rem; color: var(--text-light); letter-spacing: 1px; margin-top: 2px; }
                 .overview-card .day-location { font-size: 0.7rem; color: var(--accent); font-weight: 600; margin-top: 6px; letter-spacing: 0.5px; }
@@ -411,7 +333,6 @@
             </style>
         </head>
         <body>
-            <!-- 日内导航条（用于快速跳转） -->
             <nav class="day-nav">
                 <a href="#day1">Day 1</a>
                 <a href="#day2">Day 2</a>
@@ -437,7 +358,6 @@
             </header>
 
             <main class="container">
-                <!-- 一周概览（点击卡片跳转到对应日） -->
                 <section class="overview-section">
                     <h2 class="section-title"><span class="icon">📅</span> 一周概览</h2>
                     <p class="section-subtitle">点击卡片快速跳转到每日详情</p>
@@ -452,7 +372,6 @@
                     </div>
                 </section>
 
-                <!-- 每日行程（每个卡片带有 id） -->
                 <section class="days-grid">
                     <article class="day-card" id="day1">
                         <div class="day-header"><div class="day-badge">1</div><div class="day-header-info"><h2>深圳湾公园 · 欢乐海岸 · 人才公园</h2><span class="day-theme">🌊 滨海休闲日 · 南山区</span></div><span class="day-tag">🚶 步行+骑行 约5km</span></div>
@@ -544,27 +463,48 @@
             <footer class="footer">
                 <p>🌴 深圳一周深度游攻略 · 愿你在深圳的每一天都精彩纷呈</p>
             </footer>
+            <script>
+                // 修复锚点跳转：阻止默认行为，手动平滑滚动并考虑顶部导航高度
+                document.addEventListener('DOMContentLoaded', function() {
+                    const nav = document.querySelector('.day-nav');
+                    const navHeight = nav ? nav.offsetHeight : 0;
+                    const offset = navHeight + 16; // 额外间距
+
+                    // 处理所有以#开头的锚点链接
+                    document.querySelectorAll('a[href^="#"]').forEach(link => {
+                        link.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const targetId = this.getAttribute('href').substring(1);
+                            const targetElement = document.getElementById(targetId);
+                            if (targetElement) {
+                                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                                window.scrollTo({
+                                    top: targetPosition,
+                                    behavior: 'smooth'
+                                });
+                            }
+                        });
+                    });
+                });
+            </script>
         </body>
         </html>
     </script>
 
     <script>
         (function() {
-            // 将深圳攻略模板注入iframe
             const shenzhenFrame = document.getElementById('shenzhenFrame');
             const template = document.getElementById('shenzhenGuideTemplate');
             if (shenzhenFrame && template) {
                 shenzhenFrame.setAttribute('srcdoc', template.innerHTML);
             }
 
-            // 标签页切换逻辑
             const tabButtons = document.querySelectorAll('.tab-btn');
             const tabPanes = document.querySelectorAll('.tab-pane');
 
             function switchTab(targetId) {
                 tabButtons.forEach(btn => btn.classList.remove('active'));
                 tabPanes.forEach(pane => pane.classList.remove('active'));
-
                 const activeButton = document.querySelector(`.tab-btn[data-target="${targetId}"]`);
                 const activePane = document.getElementById(targetId);
                 if (activeButton) activeButton.classList.add('active');
@@ -578,7 +518,6 @@
                 });
             });
 
-            // 默认激活深圳
             switchTab('shenzhen');
         })();
     </script>
