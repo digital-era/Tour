@@ -21,7 +21,13 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --font-sans: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Arial, sans-serif;
         }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: var(--font-sans);
             background: var(--bg);
@@ -33,6 +39,7 @@
             flex-direction: column;
             align-items: center;
         }
+
         .app-wrapper {
             width: 100%;
             max-width: 1200px;
@@ -41,11 +48,13 @@
             flex-direction: column;
             min-height: 100vh;
         }
+
         .app-header {
             text-align: center;
             margin-bottom: 24px;
             padding: 30px 10px 10px;
         }
+
         .app-header h1 {
             font-size: 2.2rem;
             font-weight: 800;
@@ -53,11 +62,13 @@
             letter-spacing: -0.5px;
             margin-bottom: 6px;
         }
+
         .app-header p {
             color: var(--text-light);
             font-size: 0.95rem;
             letter-spacing: 0.5px;
         }
+
         .tab-nav {
             display: flex;
             gap: 8px;
@@ -69,6 +80,7 @@
             flex-wrap: wrap;
             justify-content: center;
         }
+
         .tab-btn {
             flex: 1 1 auto;
             min-width: 100px;
@@ -84,15 +96,45 @@
             letter-spacing: 0.5px;
             white-space: nowrap;
         }
-        .tab-btn:hover { background: var(--primary-light); color: var(--primary); }
-        .tab-btn.active { background: var(--primary); color: #fff; box-shadow: 0 4px 12px rgba(10, 110, 124, 0.3); }
-        .tab-content { flex: 1; background: transparent; border-radius: var(--radius); min-height: 600px; }
-        .tab-pane { display: none; animation: fadeIn 0.35s ease; }
-        .tab-pane.active { display: block; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        .tab-btn:hover {
+            background: var(--primary-light);
+            color: var(--primary);
         }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(10, 110, 124, 0.3);
+        }
+
+        .tab-content {
+            flex: 1;
+            background: transparent;
+            border-radius: var(--radius);
+            min-height: 600px;
+        }
+
+        .tab-pane {
+            display: none;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .tab-pane.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .pane-iframe-wrapper {
             background: #fff;
             border-radius: var(--radius);
@@ -102,7 +144,14 @@
             height: 80vh;
             min-height: 600px;
         }
-        .pane-iframe-wrapper iframe { width: 100%; height: 100%; border: none; display: block; }
+
+        .pane-iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
         .placeholder-pane {
             background: #fff;
             border-radius: var(--radius);
@@ -117,14 +166,40 @@
             justify-content: center;
             gap: 16px;
         }
-        .placeholder-pane .icon { font-size: 4rem; opacity: 0.6; }
-        .placeholder-pane h3 { font-size: 1.6rem; font-weight: 700; color: var(--text); }
-        .placeholder-pane p { color: var(--text-light); max-width: 400px; }
+
+        .placeholder-pane .icon {
+            font-size: 4rem;
+            opacity: 0.6;
+        }
+
+        .placeholder-pane h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .placeholder-pane p {
+            color: var(--text-light);
+            max-width: 400px;
+        }
+
         @media (max-width: 768px) {
-            .app-header h1 { font-size: 1.7rem; }
-            .tab-nav { border-radius: 30px; padding: 6px; gap: 4px; }
-            .tab-btn { padding: 8px 14px; font-size: 0.85rem; min-width: 70px; }
-            .pane-iframe-wrapper { height: 70vh; }
+            .app-header h1 {
+                font-size: 1.7rem;
+            }
+            .tab-nav {
+                border-radius: 30px;
+                padding: 6px;
+                gap: 4px;
+            }
+            .tab-btn {
+                padding: 8px 14px;
+                font-size: 0.85rem;
+                min-width: 70px;
+            }
+            .pane-iframe-wrapper {
+                height: 70vh;
+            }
         }
     </style>
 </head>
@@ -164,7 +239,7 @@
         </div>
     </div>
 
-    <!-- 深圳攻略模板（含修复后的锚点跳转脚本） -->
+    <!-- 深圳攻略模板（已去掉顶部Day导航，仅保留概览卡片跳转） -->
     <script type="text/html" id="shenzhenGuideTemplate">
         <!DOCTYPE html>
         <html lang="zh-CN">
@@ -198,35 +273,6 @@
                     line-height: 1.7;
                     -webkit-font-smoothing: antialiased;
                 }
-                /* 顶部日内导航 */
-                .day-nav {
-                    position: sticky;
-                    top: 0;
-                    z-index: 100;
-                    background: rgba(255,255,255,0.95);
-                    backdrop-filter: blur(10px);
-                    border-bottom: 1px solid #e2e8f0;
-                    padding: 10px 15px;
-                    display: flex;
-                    gap: 6px;
-                    overflow-x: auto;
-                    white-space: nowrap;
-                    scrollbar-width: none;
-                    -ms-overflow-style: none;
-                }
-                .day-nav::-webkit-scrollbar { display: none; }
-                .day-nav a {
-                    padding: 6px 14px;
-                    border-radius: 50px;
-                    text-decoration: none;
-                    font-size: 0.8rem;
-                    font-weight: 600;
-                    color: var(--text-light);
-                    background: #f1f5f9;
-                    transition: var(--transition);
-                    flex-shrink: 0;
-                }
-                .day-nav a:hover { background: var(--primary); color: #fff; }
                 .hero {
                     background: linear-gradient(135deg, #0a6e7c 0%, #0b8a9c 35%, #0d9eae 65%, #0fa3b8 100%);
                     color: #fff;
@@ -285,7 +331,7 @@
                     overflow: hidden;
                     transition: var(--transition);
                     border: 1px solid #edf2f7;
-                    scroll-margin-top: 70px;
+                    scroll-margin-top: 20px;
                 }
                 .day-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
                 .day-header { display: flex; align-items: center; gap: 14px; padding: 18px 22px; background: linear-gradient(135deg, #f0f9fa 0%, #e8f4f6 100%); border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; }
@@ -333,16 +379,6 @@
             </style>
         </head>
         <body>
-            <nav class="day-nav">
-                <a href="#day1">Day 1</a>
-                <a href="#day2">Day 2</a>
-                <a href="#day3">Day 3</a>
-                <a href="#day4">Day 4</a>
-                <a href="#day5">Day 5</a>
-                <a href="#day6">Day 6</a>
-                <a href="#day7">Day 7</a>
-            </nav>
-
             <header class="hero">
                 <div class="hero-content">
                     <span class="hero-badge">🌴 深度旅行指南</span>
@@ -464,28 +500,37 @@
                 <p>🌴 深圳一周深度游攻略 · 愿你在深圳的每一天都精彩纷呈</p>
             </footer>
             <script>
-                // 修复锚点跳转：阻止默认行为，手动平滑滚动并考虑顶部导航高度
-                document.addEventListener('DOMContentLoaded', function() {
-                    const nav = document.querySelector('.day-nav');
-                    const navHeight = nav ? nav.offsetHeight : 0;
-                    const offset = navHeight + 16; // 额外间距
-
-                    // 处理所有以#开头的锚点链接
-                    document.querySelectorAll('a[href^="#"]').forEach(link => {
-                        link.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            const targetId = this.getAttribute('href').substring(1);
-                            const targetElement = document.getElementById(targetId);
-                            if (targetElement) {
-                                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
-                                window.scrollTo({
-                                    top: targetPosition,
-                                    behavior: 'smooth'
-                                });
-                            }
+                // 确保所有锚点链接都能平滑滚动，即使默认行为被干扰也能手动处理
+                (function() {
+                    // 等待DOM完全加载后绑定事件
+                    function bindAnchorClicks() {
+                        document.querySelectorAll('a[href^="#"]').forEach(link => {
+                            link.removeEventListener('click', handleClick);
+                            link.addEventListener('click', handleClick);
                         });
-                    });
-                });
+                    }
+
+                    function handleClick(e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const target = document.getElementById(targetId);
+                        if (target) {
+                            // 计算目标位置，考虑固定元素偏移（这里没有固定导航条，所以偏移很小）
+                            const offset = 20; // 给一点呼吸空间
+                            const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                            window.scrollTo({
+                                top: top,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+
+                    if (document.readyState === 'loading') {
+                        document.addEventListener('DOMContentLoaded', bindAnchorClicks);
+                    } else {
+                        bindAnchorClicks();
+                    }
+                })();
             </script>
         </body>
         </html>
@@ -493,18 +538,21 @@
 
     <script>
         (function() {
+            // 将深圳攻略模板注入iframe
             const shenzhenFrame = document.getElementById('shenzhenFrame');
             const template = document.getElementById('shenzhenGuideTemplate');
             if (shenzhenFrame && template) {
                 shenzhenFrame.setAttribute('srcdoc', template.innerHTML);
             }
 
+            // 标签页切换逻辑
             const tabButtons = document.querySelectorAll('.tab-btn');
             const tabPanes = document.querySelectorAll('.tab-pane');
 
             function switchTab(targetId) {
                 tabButtons.forEach(btn => btn.classList.remove('active'));
                 tabPanes.forEach(pane => pane.classList.remove('active'));
+
                 const activeButton = document.querySelector(`.tab-btn[data-target="${targetId}"]`);
                 const activePane = document.getElementById(targetId);
                 if (activeButton) activeButton.classList.add('active');
@@ -518,6 +566,7 @@
                 });
             });
 
+            // 默认激活深圳
             switchTab('shenzhen');
         })();
     </script>
