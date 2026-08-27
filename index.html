@@ -40,7 +40,6 @@
             align-items: center;
         }
 
-        /* 框架容器 */
         .app-wrapper {
             width: 100%;
             max-width: 1200px;
@@ -50,7 +49,6 @@
             min-height: 100vh;
         }
 
-        /* 头部 */
         .app-header {
             text-align: center;
             margin-bottom: 24px;
@@ -71,7 +69,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* 标签页导航 */
         .tab-nav {
             display: flex;
             gap: 8px;
@@ -104,14 +101,12 @@
             background: var(--primary-light);
             color: var(--primary);
         }
-
         .tab-btn.active {
             background: var(--primary);
             color: #fff;
             box-shadow: 0 4px 12px rgba(10, 110, 124, 0.3);
         }
 
-        /* 标签内容区域 */
         .tab-content {
             flex: 1;
             background: transparent;
@@ -123,7 +118,6 @@
             display: none;
             animation: fadeIn 0.35s ease;
         }
-
         .tab-pane.active {
             display: block;
         }
@@ -139,7 +133,6 @@
             }
         }
 
-        /* iframe 容器 */
         .pane-iframe-wrapper {
             background: #fff;
             border-radius: var(--radius);
@@ -157,7 +150,6 @@
             display: block;
         }
 
-        /* 占位内容 */
         .placeholder-pane {
             background: #fff;
             border-radius: var(--radius);
@@ -187,7 +179,6 @@
             max-width: 400px;
         }
 
-        /* 响应式 */
         @media (max-width: 768px) {
             .app-header h1 {
                 font-size: 1.7rem;
@@ -210,30 +201,23 @@
 </head>
 <body>
     <div class="app-wrapper">
-        <!-- 头部 -->
         <header class="app-header">
             <h1>🌍 城市旅游攻略</h1>
             <p>选择一个城市，探索专属深度旅行计划</p>
         </header>
 
-        <!-- 标签导航 -->
         <nav class="tab-nav" id="tabNav">
             <button class="tab-btn active" data-target="shenzhen">深圳</button>
             <button class="tab-btn" data-target="guangzhou">广州</button>
             <button class="tab-btn" data-target="zhuhai">珠海</button>
-            <!-- 可继续添加城市 -->
         </nav>
 
-        <!-- 标签内容面板 -->
         <div class="tab-content">
-            <!-- 深圳标签页（使用 iframe 嵌入完整攻略） -->
             <div class="tab-pane active" id="shenzhen">
                 <div class="pane-iframe-wrapper">
                     <iframe id="shenzhenFrame" title="深圳一周旅游攻略" srcdoc=""></iframe>
                 </div>
             </div>
-
-            <!-- 广州标签页（占位） -->
             <div class="tab-pane" id="guangzhou">
                 <div class="placeholder-pane">
                     <div class="icon">🌆</div>
@@ -241,8 +225,6 @@
                     <p>广州深度游攻略正在整理中，即将上线。</p>
                 </div>
             </div>
-
-            <!-- 珠海标签页（占位） -->
             <div class="tab-pane" id="zhuhai">
                 <div class="placeholder-pane">
                     <div class="icon">🏝️</div>
@@ -253,7 +235,7 @@
         </div>
     </div>
 
-    <!-- 隐藏的模板：深圳攻略完整HTML（用于iframe的srcdoc） -->
+    <!-- 隐藏的深圳攻略模板（包含锚点跳转） -->
     <script type="text/html" id="shenzhenGuideTemplate">
         <!DOCTYPE html>
         <html lang="zh-CN">
@@ -287,10 +269,42 @@
                     line-height: 1.7;
                     -webkit-font-smoothing: antialiased;
                 }
+                /* 顶部导航（日内） */
+                .day-nav {
+                    position: sticky;
+                    top: 0;
+                    z-index: 100;
+                    background: rgba(255,255,255,0.95);
+                    backdrop-filter: blur(10px);
+                    border-bottom: 1px solid #e2e8f0;
+                    padding: 10px 15px;
+                    display: flex;
+                    gap: 6px;
+                    overflow-x: auto;
+                    white-space: nowrap;
+                    scrollbar-width: none;
+                    -ms-overflow-style: none;
+                }
+                .day-nav::-webkit-scrollbar { display: none; }
+                .day-nav a {
+                    padding: 6px 14px;
+                    border-radius: 50px;
+                    text-decoration: none;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                    color: var(--text-light);
+                    background: #f1f5f9;
+                    transition: var(--transition);
+                    flex-shrink: 0;
+                }
+                .day-nav a:hover {
+                    background: var(--primary);
+                    color: #fff;
+                }
                 .hero {
                     background: linear-gradient(135deg, #0a6e7c 0%, #0b8a9c 35%, #0d9eae 65%, #0fa3b8 100%);
                     color: #fff;
-                    padding: 80px 20px 70px;
+                    padding: 60px 20px 50px;
                     text-align: center;
                     position: relative;
                     overflow: hidden;
@@ -298,10 +312,8 @@
                 .hero::before {
                     content: '';
                     position: absolute;
-                    top: -50%;
-                    left: -50%;
-                    width: 200%;
-                    height: 200%;
+                    top: -50%; left: -50%;
+                    width: 200%; height: 200%;
                     background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.06) 0%, transparent 50%),
                                 radial-gradient(circle at 70% 60%, rgba(255,255,255,0.04) 0%, transparent 40%);
                     animation: heroFloat 20s ease-in-out infinite;
@@ -310,71 +322,106 @@
                 @keyframes heroFloat { 0%,100% { transform: translate(0,0); } 50% { transform: translate(2%,-2%); } }
                 .hero-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
                 .hero-badge { display: inline-block; background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 6px 18px; border-radius: 50px; font-size: 0.85rem; letter-spacing: 2px; margin-bottom: 20px; border: 1px solid rgba(255,255,255,0.25); }
-                .hero h1 { font-size: 3.2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; text-shadow: 0 2px 20px rgba(0,0,0,0.15); }
-                .hero p { font-size: 1.15rem; opacity: 0.92; max-width: 600px; margin: 0 auto; letter-spacing: 0.5px; }
-                .hero-stats { display: flex; justify-content: center; gap: 40px; margin-top: 36px; flex-wrap: wrap; }
+                .hero h1 { font-size: 2.8rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; text-shadow: 0 2px 20px rgba(0,0,0,0.15); }
+                .hero p { font-size: 1.1rem; opacity: 0.92; max-width: 600px; margin: 0 auto; letter-spacing: 0.5px; }
+                .hero-stats { display: flex; justify-content: center; gap: 35px; margin-top: 30px; flex-wrap: wrap; }
                 .hero-stat { text-align: center; }
-                .hero-stat-number { font-size: 2rem; font-weight: 700; display: block; }
-                .hero-stat-label { font-size: 0.85rem; opacity: 0.8; letter-spacing: 1px; }
-                .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px 60px; }
-                .overview-section { margin-bottom: 48px; }
-                .section-title { font-size: 1.8rem; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
-                .section-title .icon { font-size: 1.6rem; }
-                .section-subtitle { color: var(--text-light); font-size: 0.95rem; margin-bottom: 28px; letter-spacing: 0.3px; }
-                .overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; }
-                .overview-card { background: var(--card-bg); border-radius: var(--radius-sm); padding: 20px 16px; text-align: center; box-shadow: var(--shadow); transition: var(--transition); cursor: default; border: 1px solid #edf2f7; }
-                .overview-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
-                .overview-card .day-num { font-size: 1.6rem; font-weight: 800; color: var(--primary); display: block; }
-                .overview-card .day-label { font-size: 0.8rem; color: var(--text-light); letter-spacing: 1px; margin-top: 2px; }
-                .overview-card .day-location { font-size: 0.75rem; color: var(--accent); font-weight: 600; margin-top: 6px; letter-spacing: 0.5px; }
-                .days-grid { display: grid; grid-template-columns: 1fr; gap: 28px; }
-                .day-card { background: var(--card-bg); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; transition: var(--transition); border: 1px solid #edf2f7; }
+                .hero-stat-number { font-size: 1.8rem; font-weight: 700; display: block; }
+                .hero-stat-label { font-size: 0.8rem; opacity: 0.8; letter-spacing: 1px; }
+                .container { max-width: 1000px; margin: 0 auto; padding: 30px 20px 50px; }
+                .overview-section { margin-bottom: 40px; }
+                .section-title { font-size: 1.6rem; font-weight: 700; color: var(--text); margin-bottom: 8px; letter-spacing: -0.5px; display: flex; align-items: center; gap: 10px; }
+                .section-title .icon { font-size: 1.4rem; }
+                .section-subtitle { color: var(--text-light); font-size: 0.9rem; margin-bottom: 20px; letter-spacing: 0.3px; }
+                .overview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+                .overview-card {
+                    display: block;
+                    background: var(--card-bg);
+                    border-radius: var(--radius-sm);
+                    padding: 16px 12px;
+                    text-align: center;
+                    box-shadow: var(--shadow);
+                    transition: var(--transition);
+                    border: 1px solid #edf2f7;
+                    text-decoration: none;
+                    color: inherit;
+                    cursor: pointer;
+                }
+                .overview-card:hover {
+                    transform: translateY(-3px);
+                    box-shadow: var(--shadow-hover);
+                    border-color: var(--primary-light);
+                }
+                .overview-card .day-num { font-size: 1.4rem; font-weight: 800; color: var(--primary); display: block; }
+                .overview-card .day-label { font-size: 0.75rem; color: var(--text-light); letter-spacing: 1px; margin-top: 2px; }
+                .overview-card .day-location { font-size: 0.7rem; color: var(--accent); font-weight: 600; margin-top: 6px; letter-spacing: 0.5px; }
+                .days-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
+                .day-card {
+                    background: var(--card-bg);
+                    border-radius: var(--radius);
+                    box-shadow: var(--shadow);
+                    overflow: hidden;
+                    transition: var(--transition);
+                    border: 1px solid #edf2f7;
+                    scroll-margin-top: 70px;
+                }
                 .day-card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
-                .day-header { display: flex; align-items: center; gap: 16px; padding: 20px 24px; background: linear-gradient(135deg, #f0f9fa 0%, #e8f4f6 100%); border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; }
-                .day-badge { width: 48px; height: 48px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 700; flex-shrink: 0; }
-                .day-header-info h2 { font-size: 1.3rem; font-weight: 700; color: var(--text); line-height: 1.3; }
-                .day-header-info .day-theme { font-size: 0.85rem; color: var(--text-light); letter-spacing: 0.5px; }
-                .day-tag { margin-left: auto; background: var(--accent-light); color: #92400e; padding: 4px 14px; border-radius: 50px; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.5px; flex-shrink: 0; }
-                .day-body { padding: 24px; }
-                .spots-list { list-style: none; display: grid; gap: 14px; }
-                .spot-item { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; background: #fafcfe; border-radius: var(--radius-sm); border: 1px solid #edf2f7; transition: var(--transition); }
+                .day-header { display: flex; align-items: center; gap: 14px; padding: 18px 22px; background: linear-gradient(135deg, #f0f9fa 0%, #e8f4f6 100%); border-bottom: 1px solid #e2e8f0; flex-wrap: wrap; }
+                .day-badge { width: 42px; height: 42px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; font-weight: 700; flex-shrink: 0; }
+                .day-header-info h2 { font-size: 1.2rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+                .day-header-info .day-theme { font-size: 0.8rem; color: var(--text-light); letter-spacing: 0.5px; }
+                .day-tag { margin-left: auto; background: var(--accent-light); color: #92400e; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; flex-shrink: 0; }
+                .day-body { padding: 20px 22px; }
+                .spots-list { list-style: none; display: grid; gap: 12px; }
+                .spot-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; background: #fafcfe; border-radius: var(--radius-sm); border: 1px solid #edf2f7; transition: var(--transition); }
                 .spot-item:hover { background: var(--primary-light); border-color: #bcd9de; }
-                .spot-icon { font-size: 1.5rem; flex-shrink: 0; line-height: 1; margin-top: 2px; }
-                .spot-details h4 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
-                .spot-details p { font-size: 0.85rem; color: var(--text-light); line-height: 1.6; }
-                .day-extras { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
-                .extra-box { background: #fafcfe; border-radius: var(--radius-sm); padding: 16px 18px; border: 1px solid #edf2f7; }
-                .extra-box h5 { font-size: 0.85rem; font-weight: 700; color: var(--primary); margin-bottom: 8px; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
-                .extra-box p { font-size: 0.83rem; color: var(--text-light); line-height: 1.6; }
-                .tips-section { margin-top: 48px; }
-                .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
-                .tip-card { background: var(--card-bg); border-radius: var(--radius-sm); padding: 20px; box-shadow: var(--shadow); border: 1px solid #edf2f7; text-align: center; transition: var(--transition); }
+                .spot-icon { font-size: 1.3rem; flex-shrink: 0; line-height: 1; margin-top: 2px; }
+                .spot-details h4 { font-size: 0.9rem; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+                .spot-details p { font-size: 0.8rem; color: var(--text-light); line-height: 1.5; }
+                .day-extras { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+                .extra-box { background: #fafcfe; border-radius: var(--radius-sm); padding: 14px 16px; border: 1px solid #edf2f7; }
+                .extra-box h5 { font-size: 0.8rem; font-weight: 700; color: var(--primary); margin-bottom: 6px; letter-spacing: 0.5px; display: flex; align-items: center; gap: 6px; }
+                .extra-box p { font-size: 0.78rem; color: var(--text-light); line-height: 1.5; }
+                .tips-section { margin-top: 40px; }
+                .tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+                .tip-card { background: var(--card-bg); border-radius: var(--radius-sm); padding: 18px; box-shadow: var(--shadow); border: 1px solid #edf2f7; text-align: center; transition: var(--transition); }
                 .tip-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
-                .tip-icon { font-size: 2rem; margin-bottom: 10px; }
-                .tip-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; color: var(--text); }
-                .tip-card p { font-size: 0.82rem; color: var(--text-light); }
-                .footer { text-align: center; padding: 32px 20px; color: var(--text-light); font-size: 0.82rem; border-top: 1px solid #e2e8f0; letter-spacing: 0.5px; }
+                .tip-icon { font-size: 1.8rem; margin-bottom: 8px; }
+                .tip-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 4px; color: var(--text); }
+                .tip-card p { font-size: 0.78rem; color: var(--text-light); }
+                .footer { text-align: center; padding: 25px 20px; color: var(--text-light); font-size: 0.78rem; border-top: 1px solid #e2e8f0; letter-spacing: 0.5px; }
                 @media (max-width: 768px) {
-                    .hero h1 { font-size: 2.2rem; }
-                    .hero { padding: 50px 16px 45px; }
+                    .hero h1 { font-size: 2rem; }
+                    .hero { padding: 40px 16px 35px; }
                     .day-extras { grid-template-columns: 1fr; }
-                    .day-header { padding: 16px 18px; gap: 12px; }
-                    .day-body { padding: 18px; }
+                    .day-header { padding: 14px 16px; gap: 10px; }
+                    .day-body { padding: 16px; }
                     .day-tag { margin-left: 0; width: 100%; text-align: center; }
-                    .container { padding: 24px 14px 40px; }
-                    .section-title { font-size: 1.4rem; }
-                    .overview-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
-                    .overview-card { padding: 12px 8px; }
-                    .overview-card .day-num { font-size: 1.2rem; }
+                    .container { padding: 20px 12px 35px; }
+                    .section-title { font-size: 1.3rem; }
+                    .overview-grid { grid-template-columns: repeat(4, 1fr); gap: 6px; }
+                    .overview-card { padding: 10px 6px; }
+                    .overview-card .day-num { font-size: 1rem; }
                 }
                 @media (max-width: 480px) {
                     .overview-grid { grid-template-columns: repeat(2, 1fr); }
-                    .hero h1 { font-size: 1.8rem; }
-                    .spot-item { flex-direction: column; gap: 8px; }
+                    .hero h1 { font-size: 1.6rem; }
+                    .spot-item { flex-direction: column; gap: 6px; }
                 }
             </style>
         </head>
         <body>
+            <!-- 日内导航条（用于快速跳转） -->
+            <nav class="day-nav">
+                <a href="#day1">Day 1</a>
+                <a href="#day2">Day 2</a>
+                <a href="#day3">Day 3</a>
+                <a href="#day4">Day 4</a>
+                <a href="#day5">Day 5</a>
+                <a href="#day6">Day 6</a>
+                <a href="#day7">Day 7</a>
+            </nav>
+
             <header class="hero">
                 <div class="hero-content">
                     <span class="hero-badge">🌴 深度旅行指南</span>
@@ -388,22 +435,26 @@
                     </div>
                 </div>
             </header>
+
             <main class="container">
+                <!-- 一周概览（点击卡片跳转到对应日） -->
                 <section class="overview-section">
                     <h2 class="section-title"><span class="icon">📅</span> 一周概览</h2>
-                    <p class="section-subtitle">快速浏览每日主题与核心区域</p>
+                    <p class="section-subtitle">点击卡片快速跳转到每日详情</p>
                     <div class="overview-grid">
-                        <div class="overview-card"><span class="day-num">Day 1</span><span class="day-label">南山·滨海</span><span class="day-location">深圳湾 & 欢乐海岸</span></div>
-                        <div class="overview-card"><span class="day-num">Day 2</span><span class="day-label">南山·主题乐园</span><span class="day-location">世界之窗 & 锦绣中华</span></div>
-                        <div class="overview-card"><span class="day-num">Day 3</span><span class="day-label">盐田·山海</span><span class="day-location">东部华侨城 & 大梅沙</span></div>
-                        <div class="overview-card"><span class="day-num">Day 4</span><span class="day-label">福田·城市</span><span class="day-location">莲花山 & 市民中心</span></div>
-                        <div class="overview-card"><span class="day-num">Day 5</span><span class="day-label">大鹏·古城</span><span class="day-location">大鹏所城 & 杨梅坑</span></div>
-                        <div class="overview-card"><span class="day-num">Day 6</span><span class="day-label">罗湖·自然</span><span class="day-location">仙湖植物园 & 梧桐山</span></div>
-                        <div class="overview-card"><span class="day-num">Day 7</span><span class="day-label">南山·文艺</span><span class="day-location">南头古城 & 海上世界</span></div>
+                        <a class="overview-card" href="#day1"><span class="day-num">Day 1</span><span class="day-label">南山·滨海</span><span class="day-location">深圳湾 & 欢乐海岸</span></a>
+                        <a class="overview-card" href="#day2"><span class="day-num">Day 2</span><span class="day-label">南山·主题乐园</span><span class="day-location">世界之窗 & 锦绣中华</span></a>
+                        <a class="overview-card" href="#day3"><span class="day-num">Day 3</span><span class="day-label">盐田·山海</span><span class="day-location">东部华侨城 & 大梅沙</span></a>
+                        <a class="overview-card" href="#day4"><span class="day-num">Day 4</span><span class="day-label">福田·城市</span><span class="day-location">莲花山 & 市民中心</span></a>
+                        <a class="overview-card" href="#day5"><span class="day-num">Day 5</span><span class="day-label">大鹏·古城</span><span class="day-location">大鹏所城 & 杨梅坑</span></a>
+                        <a class="overview-card" href="#day6"><span class="day-num">Day 6</span><span class="day-label">罗湖·自然</span><span class="day-location">仙湖植物园 & 梧桐山</span></a>
+                        <a class="overview-card" href="#day7"><span class="day-num">Day 7</span><span class="day-label">南山·文艺</span><span class="day-location">南头古城 & 海上世界</span></a>
                     </div>
                 </section>
+
+                <!-- 每日行程（每个卡片带有 id） -->
                 <section class="days-grid">
-                    <article class="day-card">
+                    <article class="day-card" id="day1">
                         <div class="day-header"><div class="day-badge">1</div><div class="day-header-info"><h2>深圳湾公园 · 欢乐海岸 · 人才公园</h2><span class="day-theme">🌊 滨海休闲日 · 南山区</span></div><span class="day-tag">🚶 步行+骑行 约5km</span></div>
                         <div class="day-body">
                             <ul class="spots-list">
@@ -414,7 +465,7 @@
                             <div class="day-extras"><div class="extra-box"><h5>🍜 推荐美食</h5><p>欢乐海岸「探鱼」烤鱼、「润园四季」椰子鸡、「gaga鲜语」轻食。</p></div><div class="extra-box"><h5>🚇 交通提示</h5><p>地铁9号线"深圳湾公园"站C/D口出即达。</p></div></div>
                         </div>
                     </article>
-                    <article class="day-card">
+                    <article class="day-card" id="day2">
                         <div class="day-header"><div class="day-badge">2</div><div class="day-header-info"><h2>世界之窗 · 锦绣中华民俗村</h2><span class="day-theme">🎡 主题乐园日 · 南山区</span></div><span class="day-tag">🎢 全天游览</span></div>
                         <div class="day-body">
                             <ul class="spots-list">
@@ -424,7 +475,7 @@
                             <div class="day-extras"><div class="extra-box"><h5>🍜 推荐美食</h5><p>世界之窗内「巴黎春天」法式餐厅、益田假日广场「太二酸菜鱼」。</p></div><div class="extra-box"><h5>🚇 交通提示</h5><p>地铁1号线/2号线"世界之窗"站H口出。</p></div></div>
                         </div>
                     </article>
-                    <article class="day-card">
+                    <article class="day-card" id="day3">
                         <div class="day-header"><div class="day-badge">3</div><div class="day-header-info"><h2>东部华侨城 · 大梅沙海滨</h2><span class="day-theme">🏔️ 山海度假日 · 盐田区</span></div><span class="day-tag">🚠 全天户外</span></div>
                         <div class="day-body">
                             <ul class="spots-list">
@@ -434,7 +485,7 @@
                             <div class="day-extras"><div class="extra-box"><h5>🍜 推荐美食</h5><p>大梅沙「师公会海鲜酒家」老字号海鲜。</p></div><div class="extra-box"><h5>🚇 交通提示</h5><p>地铁8号线"大梅沙"站（2024年开通）或公交M362。</p></div></div>
                         </div>
                     </article>
-                    <article class="day-card">
+                    <article class="day-card" id="day4">
                         <div class="day-header"><div class="day-badge">4</div><div class="day-header-info"><h2>莲花山公园 · 市民中心 · 深圳博物馆</h2><span class="day-theme">🏙️ 城市文化日 · 福田区</span></div><span class="day-tag">📚 文化漫步</span></div>
                         <div class="day-body">
                             <ul class="spots-list">
@@ -445,7 +496,7 @@
                             <div class="day-extras"><div class="extra-box"><h5>🍜 推荐美食</h5><p>「凤凰楼」早茶、「润园四季」椰子鸡。</p></div><div class="extra-box"><h5>🚇 交通提示</h5><p>地铁3/4号线"少年宫"站或"市民中心"站。</p></div></div>
                         </div>
                     </article>
-                    <article class="day-card">
+                    <article class="day-card" id="day5">
                         <div class="day-header"><div class="day-badge">5</div><div class="day-header-info"><h2>大鹏所城 · 较场尾 · 杨梅坑</h2><span class="day-theme">🏰 古城滨海日 · 大鹏新区</span></div><span class="day-tag">🚌 远郊一日</span></div>
                         <div class="day-body">
                             <ul class="spots-list">
@@ -456,7 +507,7 @@
                             <div class="day-extras"><div class="extra-box"><h5>🍜 推荐美食</h5><p>较场尾「鹏城人家」海鲜、大鹏所城「肥妈小吃」濑粉仔。</p></div><div class="extra-box"><h5>🚇 交通提示</h5><p>市区乘E11路到大鹏中心，转M471/M457。</p></div></div>
                         </div>
                     </article>
-                    <article class="day-card">
+                    <article class="day-card" id="day6">
                         <div class="day-header"><div class="day-badge">6</div><div class="day-header-info"><h2>仙湖植物园 · 梧桐山</h2><span class="day-theme">🌿 自然探索日 · 罗湖区</span></div><span class="day-tag">🥾 轻徒步</span></div>
                         <div class="day-body">
                             <ul class="spots-list">
@@ -466,7 +517,7 @@
                             <div class="day-extras"><div class="extra-box"><h5>🍜 推荐美食</h5><p>仙湖植物园门口「素菜馆」斋饭、莲塘「客家豆腐坊」。</p></div><div class="extra-box"><h5>🚇 交通提示</h5><p>地铁2/8号线"仙湖路"站C口出。</p></div></div>
                         </div>
                     </article>
-                    <article class="day-card">
+                    <article class="day-card" id="day7">
                         <div class="day-header"><div class="day-badge">7</div><div class="day-header-info"><h2>南头古城 · 海上世界 · 蛇口老街</h2><span class="day-theme">🎨 文艺慢游日 · 南山区</span></div><span class="day-tag">☕ 悠闲收尾</span></div>
                         <div class="day-body">
                             <ul class="spots-list">
@@ -478,6 +529,7 @@
                         </div>
                     </article>
                 </section>
+
                 <section class="tips-section">
                     <h2 class="section-title"><span class="icon">💡</span> 实用贴士</h2>
                     <p class="section-subtitle">让旅行更顺畅的小建议</p>
@@ -498,11 +550,10 @@
 
     <script>
         (function() {
-            // 获取iframe和模板内容
+            // 将深圳攻略模板注入iframe
             const shenzhenFrame = document.getElementById('shenzhenFrame');
             const template = document.getElementById('shenzhenGuideTemplate');
             if (shenzhenFrame && template) {
-                // 将模板内容注入iframe的srcdoc
                 shenzhenFrame.setAttribute('srcdoc', template.innerHTML);
             }
 
@@ -511,11 +562,9 @@
             const tabPanes = document.querySelectorAll('.tab-pane');
 
             function switchTab(targetId) {
-                // 移除所有active
                 tabButtons.forEach(btn => btn.classList.remove('active'));
                 tabPanes.forEach(pane => pane.classList.remove('active'));
 
-                // 添加active到目标
                 const activeButton = document.querySelector(`.tab-btn[data-target="${targetId}"]`);
                 const activePane = document.getElementById(targetId);
                 if (activeButton) activeButton.classList.add('active');
